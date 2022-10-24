@@ -1,6 +1,21 @@
 function Footer() {
+
+  const styles = {
+    backgroundColor: '#1976d2',
+    color: '#FFF',
+    padding: '1px',
+    textAlign: 'center',
+    width: '100%',
+    position: 'fixed',
+    bottom: '0',
+  }
+
   return (
-    <div>Footer</div>
+    <footer style={styles}>
+      <p>
+        <span>ZSSN &copy; 2022</span>
+      </p>
+    </footer>
   )
 }
 
