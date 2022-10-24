@@ -13,7 +13,7 @@ function App() {
     <Router>
       <Navbar />
 
-      <Container>
+      <Container sx={{ mt: '3em' }}>
         <Routes>
           <Route path='/sobreviventes' element={<Sobreviventes />} />
           <Route path='/inventarios' element={<Inventarios />} />
