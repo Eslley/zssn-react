@@ -4,7 +4,6 @@ import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
-const drawerWidth = 240;
 const navItems = [
     {
         text: 'Sobreviventes',
@@ -47,8 +46,8 @@ function Navbar(props) {
             <Divider />
             <List>
                 {navItems.map((item) => (
-                    <Link to={`/${item.key}`}>
-                        <ListItem key={item.key} disablePadding>
+                    <Link style={{textDecoration: 'none'}} key={item.key} to={`/${item.key}`}>
+                        <ListItem disablePadding>
                             <ListItemButton sx={{ textAlign: 'center' }}>
                                 <ListItemText primary={item.text} />
                             </ListItemButton>
@@ -63,7 +62,7 @@ function Navbar(props) {
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar sx={{ position: 'absolute' }} component="nav">
+            <AppBar sx={{ position: 'relative' }} component="nav">
                 <Toolbar>
                     <IconButton
                         color="inherit"
@@ -83,8 +82,8 @@ function Navbar(props) {
                     </Typography>
                     <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
                         {navItems.map((item) => (
-                            <Link to={`/${item.key}`}>
-                            <Button key={item.key} sx={{ color: '#fff' }}>
+                            <Link style={{textDecoration: 'none'}} key={item.key} to={`/${item.key}`}>
+                            <Button sx={{ color: '#fff' }}>
                                 {item.text}
                             </Button>
                         </Link>
@@ -104,7 +103,7 @@ function Navbar(props) {
                     }}
                     sx={{
                         display: { xs: 'block', sm: 'none' },
-                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 240 },
                     }}
                 >
                     {drawer}
