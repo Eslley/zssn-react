@@ -6,6 +6,7 @@ import PageTitle from "../../components/layout/PageTitle";
 import sobreviventesService from '../../providers/http-service/sobreviventesService';
 import PieChart from "../../components/charts/PieChart";
 import ColumnChart from "../../components/charts/ColumnChart";
+import { useLoader } from "../../providers/loading/LoadingProvider";
 
 function Relatorios() {
 
@@ -13,8 +14,11 @@ function Relatorios() {
   const [dataSituacao, setDataSituacao] = useState([])
   const [dataMedia, setDataMedia] = useState([])
   const [dataPontosPerdidos, setDataPontosPerdidos] = useState([])
+  const { startLoader, stopLoader } = useLoader()
 
   useEffect(() => {
+    startLoader()
+
     sobreviventesService.getRelatorios()
       .then(res => {
         const data = res.data
@@ -40,6 +44,8 @@ function Relatorios() {
         })
 
         setDataPontosPerdidos(auxDataPontos)
+
+        stopLoader()
 
       })
       .catch(err => {
