@@ -69,18 +69,18 @@ function Navbar(props) {
                         aria-label="open drawer"
                         edge="start"
                         onClick={handleDrawerToggle}
-                        sx={{ mr: 2, display: { sm: 'none' } }}
+                        sx={{ mr: 2, display: { md: 'none' } }}
                     >
                         <MenuIcon />
                     </IconButton>
                     <Typography
                         variant="h6"
                         component="div"
-                        sx={{ flexGrow: 1, display: { sm: 'block' }, textAlign: { xs: 'center', sm: 'start' } }}
+                        sx={{ flexGrow: 1, display: { md: 'block' }, textAlign: { xs: 'center', md: 'start' } }}
                     >
                         ZSSN
                     </Typography>
-                    <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+                    <Box sx={{ display: { sm: 'none', xs: 'none', md: 'block'} }}>
                         {navItems.map((item) => (
                             <Link style={{textDecoration: 'none'}} key={item.key} to={`/${item.key}`}>
                             <Button sx={{ color: '#fff' }}>
@@ -102,7 +102,7 @@ function Navbar(props) {
                         keepMounted: true, // Better open performance on mobile.
                     }}
                     sx={{
-                        display: { xs: 'block', sm: 'none' },
+                        display: { md: 'block' },
                         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 240 },
                     }}
                 >
