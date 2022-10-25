@@ -39,11 +39,14 @@ function Sobreviventes() {
         if (res.status === 200)
           setSobreviventes(res.data)
 
+
         stopLoader()
+
       })
       .catch(err => {
         console.log(err)
       })
+
   }, [])
 
   function openDetails(moreInfo) {

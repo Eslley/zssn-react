@@ -1,7 +1,7 @@
-import { CircularProgress } from '@mui/material'
+import { Backdrop, CircularProgress } from '@mui/material'
 import React, { createContext, useContext, useMemo, useRef, useState } from 'react'
 
-const LoadingContext= createContext();
+const LoadingContext = createContext();
 
 export default function LoadingProvider({ children }) {
 
@@ -9,15 +9,20 @@ export default function LoadingProvider({ children }) {
     const startLoader = () => setLoading(true)
     const stopLoader = () => setLoading(false)
     const value = useMemo(
-        () => ({startLoader, stopLoader }),
+        () => ({ startLoader, stopLoader }),
         [startLoader, stopLoader]
     )
 
     return (
         <LoadingContext.Provider value={value}>
             {children}
-            {loading ? 
-                <CircularProgress sx={{ position: 'fixed', top: '40%', right: '50%', transform: 'translate(-50%,-50%)', zIndex: '999' }} />
+            {loading ?
+                <Backdrop
+                    sx={{ color: '#fff', zIndex: '999' }}
+                    open={loading}
+                >
+                    <CircularProgress color="inherit" />
+                </Backdrop>
                 : null
             }
         </LoadingContext.Provider>

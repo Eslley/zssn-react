@@ -1,9 +1,6 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material"
 
 function SobreviventeDetails({ sobrevivente, detailsOpen, setDetailsOpen }) {
-
-    console.log(sobrevivente)
-
     return (
             <Dialog
                 open={detailsOpen}
