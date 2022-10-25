@@ -7,14 +7,7 @@ import { Box } from '@mui/system';
 import sobreviventesService from '../../providers/http-service/sobreviventesService';
 import { useLoader } from '../../providers/loading/LoadingProvider';
 import SobreviventeDetails from './SobreviventeDetails';
-
-
-const styles = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  fontSize: '26px'
-}
+import PageTitle from '../../components/layout/PageTitle';
 
 const nameButtonStyles = {
   textTransform: 'none'
@@ -56,10 +49,7 @@ function Sobreviventes() {
 
   return (
     <>
-      <h4 style={styles}>
-        <People />
-        Sobreviventes
-      </h4>
+      <PageTitle title="Sobreviventes" icon={(<People />)} />
 
       {sobreviventes.length > 0 ? (
         <TableContainer sx={{ overflowX: 'hidden' }} component={Paper}>
