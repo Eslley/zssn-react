@@ -7,6 +7,9 @@ import Inventarios from "./pages/inventarios/Inventarios"
 import Itens from "./pages/itens/Itens"
 import Comercio from "./pages/comercio/Comercio"
 import Relatorios from "./pages/relatorios/Relatorios"
+import { CircularProgress } from "@mui/material";
+import loading from "./providers/loading/LoadingProvider";
+import LoadingProvider from './providers/loading/LoadingProvider'
 
 function App() {
   return (
@@ -14,6 +17,7 @@ function App() {
       <Navbar />
 
       <Container sx={{ mt: '3em' }}>
+        <LoadingProvider>
         <Routes>
           <Route path='/sobreviventes' element={<Sobreviventes />} />
           <Route path='/inventarios' element={<Inventarios />} />
@@ -21,6 +25,7 @@ function App() {
           <Route path='/comercio' element={<Comercio />} />
           <Route path='/relatorios' element={<Relatorios />} />
         </Routes>
+        </LoadingProvider>
       </Container>
 
       <Footer />
