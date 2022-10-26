@@ -86,7 +86,9 @@ function Navbar(props) {
                         component="div"
                         sx={{ flexGrow: 1, display: { md: 'block' }, textAlign: { xs: 'center', md: 'start' } }}
                     >
+                        <Link style={{textDecoration: 'none', color: '#fff'}} to="/zssn-react">
                         ZSSN
+                        </Link>
                     </Typography>
                     <Box sx={{ display: { sm: 'none', xs: 'none', md: 'block'} }}>
                         {navItems.map((item) => (

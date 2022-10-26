@@ -7,9 +7,8 @@ import Inventarios from "./pages/inventarios/Inventarios"
 import Itens from "./pages/itens/Itens"
 import Comercio from "./pages/comercio/Comercio"
 import Relatorios from "./pages/relatorios/Relatorios"
-import { CircularProgress } from "@mui/material";
-import loading from "./providers/loading/LoadingProvider";
 import LoadingProvider from './providers/loading/LoadingProvider'
+import Home from "./pages/home/Home";
 
 function App() {
   return (
@@ -19,6 +18,7 @@ function App() {
       <Container sx={{ minHeight: '80%', mt: '3em' }}>
         <LoadingProvider>
         <Routes>
+          <Route path='/zssn-react' element={<Home />} />
           <Route path='/sobreviventes' element={<Sobreviventes />} />
           <Route path='/inventarios' element={<Inventarios />} />
           <Route path='/itens' element={<Itens />} />
