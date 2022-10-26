@@ -84,13 +84,13 @@ function Sobreviventes() {
                   <TableCell align="center">{sobrevivente.countAlertInfected}</TableCell>
                   <TableCell align="center">
                     <Tooltip title="Editar localização" arrow>
-                      <IconButton aria-label="delete" color="primary">
+                      <IconButton disabled={sobrevivente.estaInfectado} aria-label="delete" color="primary">
                         <EditLocation />
                       </IconButton>
                     </Tooltip>
 
                     <Tooltip title="Alertar infecção" arrow>
-                      <IconButton aria-label="report" color="error">
+                      <IconButton disabled={sobrevivente.estaInfectado} aria-label="report" color="error">
                         <ReportProblem />
                       </IconButton>
                     </Tooltip>
