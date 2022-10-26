@@ -1,4 +1,4 @@
-import { AppBar, Box, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemText, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, colors, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemText, Toolbar, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
@@ -25,17 +25,25 @@ const navItems = [
         text: 'Relatórios',
         key: 'relatorios'
     },
-];
+]
+
+
 
 function Navbar(props) {
 
     const { window } = props;
 
-    const [mobileOpen, setMobileOpen] = useState(false);
+    const [mobileOpen, setMobileOpen] = useState(false)
+
+    const [atual, setAtual] = useState('')
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
-    };
+    }
+
+    function handleClick(key) {
+        setAtual(key)
+    }
 
     //Renderiza side modal para o menu no mobile
     const drawer = (
@@ -82,8 +90,8 @@ function Navbar(props) {
                     </Typography>
                     <Box sx={{ display: { sm: 'none', xs: 'none', md: 'block'} }}>
                         {navItems.map((item) => (
-                            <Link style={{textDecoration: 'none'}} key={item.key} to={`/${item.key}`}>
-                            <Button sx={{ color: '#fff' }}>
+                            <Link style={{textDecoration: 'none'}} key={item.key} to={`/${item.key}`} onClick={() => handleClick(item.key)}>
+                            <Button sx={{ ":hover": { backgroundColor: 'rgba(51, 153, 255, 0.4)' }, backgroundColor: item.key === atual ? 'rgba(51, 153, 255, 0.6)' : 'none', color: '#fff' }}>
                                 {item.text}
                             </Button>
                         </Link>
