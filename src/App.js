@@ -16,7 +16,7 @@ function App() {
     <Router>
       <Navbar />
 
-      <Container sx={{ mt: '3em' }}>
+      <Container sx={{ minHeight: '80%', mt: '3em' }}>
         <LoadingProvider>
         <Routes>
           <Route path='/sobreviventes' element={<Sobreviventes />} />

@@ -5,9 +5,8 @@ function Footer() {
     color: '#FFF',
     padding: '1px',
     textAlign: 'center',
-    width: '100%',
-    position: 'fixed',
-    bottom: '0',
+    position: 'relative',
+    bottom: '0'
   }
 
   return (
