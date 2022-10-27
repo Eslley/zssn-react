@@ -86,7 +86,7 @@ function Navbar(props) {
                         component="div"
                         sx={{ flexGrow: 1, display: { md: 'block' }, textAlign: { xs: 'center', md: 'start' } }}
                     >
-                        <Link style={{textDecoration: 'none', color: '#fff'}} to="/zssn-react">
+                        <Link style={{textDecoration: 'none', color: '#fff'}} to="/zssn-react" onClick={() => handleClick('zssn-react')}>
                         ZSSN
                         </Link>
                     </Typography>
