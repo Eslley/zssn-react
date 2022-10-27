@@ -5,7 +5,7 @@ import zombie from '../../img/zombie.png'
 import { useEffect, useState } from 'react';
 import { Box } from '@mui/system';
 import sobreviventesService from '../../providers/http-service/sobreviventesService';
-import { useLoader } from '../../providers/loading/LoadingProvider';
+import { useLoader } from '../../components/loading/LoadingProvider';
 import SobreviventeDetails from './SobreviventeDetails';
 import PageTitle from '../../components/layout/PageTitle';
 

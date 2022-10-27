@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useLoader } from "../../providers/loading/LoadingProvider"
+import { useLoader } from "../../components/loading/LoadingProvider"
 import { Add, Delete, ViewList } from "@mui/icons-material";
 
 import itensService from '../../providers/http-service/itensService';

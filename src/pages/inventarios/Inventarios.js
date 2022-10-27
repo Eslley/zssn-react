@@ -1,6 +1,6 @@
 import { Inventory2 } from "@mui/icons-material"
 import PageTitle from "../../components/layout/PageTitle";
-import { useLoader } from "../../providers/loading/LoadingProvider";
+import { useLoader } from "../../components/loading/LoadingProvider";
 import inventariosService from "../../providers/http-service/inventariosService"
 import { useEffect, useState } from "react";
 import InventarioCard from "./InventarioCard";

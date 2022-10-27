@@ -6,7 +6,7 @@ import PageTitle from "../../components/layout/PageTitle";
 import sobreviventesService from '../../providers/http-service/sobreviventesService';
 import PieChart from "../../components/charts/PieChart";
 import ColumnChart from "../../components/charts/ColumnChart";
-import { useLoader } from "../../providers/loading/LoadingProvider";
+import { useLoader } from "../../components/loading/LoadingProvider";
 
 function Relatorios() {
 

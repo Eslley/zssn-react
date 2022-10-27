@@ -7,7 +7,7 @@ import Inventarios from "./pages/inventarios/Inventarios"
 import Itens from "./pages/itens/Itens"
 import Comercio from "./pages/comercio/Comercio"
 import Relatorios from "./pages/relatorios/Relatorios"
-import LoadingProvider from './providers/loading/LoadingProvider'
+import LoadingProvider from './components/loading/LoadingProvider'
 import Home from "./pages/home/Home";
 import AlertMessageProvider from "./components/alert/AlertMessageProvider";
 
