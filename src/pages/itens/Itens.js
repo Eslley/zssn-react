@@ -6,6 +6,8 @@ import itensService from '../../providers/http-service/itensService';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Fab, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Tooltip } from "@mui/material";
 import PageTitle from "../../components/layout/PageTitle";
 import { Box } from "@mui/system";
+import { useAlertMessage } from "../../components/alert/AlertMessageProvider"
+
 
 function Itens() {
 
@@ -14,6 +16,7 @@ function Itens() {
   const [item, setItem] = useState({})
   const [open, setOpen] = useState(false)
   const [openDialogForm, setOpenDialogForm] = useState(false)
+  const { showAlert }  = useAlertMessage()
 
   useEffect(() => {
     startLoader()
@@ -52,6 +55,8 @@ function Itens() {
           return e !== item
         })
 
+        showAlert('','Item deletado com sucesso!','success', 4000)
+
         setItens(auxItens)
         stopLoader()
       })
@@ -76,7 +81,7 @@ function Itens() {
         if (res.status === 201)
           console.log(res.data)
           itens.push(res.data)
-          //setItem(itens)
+          showAlert('','Item adicionado com sucesso!','success', 4000)
 
         stopLoader()
         setItem({})

@@ -9,6 +9,7 @@ import Comercio from "./pages/comercio/Comercio"
 import Relatorios from "./pages/relatorios/Relatorios"
 import LoadingProvider from './providers/loading/LoadingProvider'
 import Home from "./pages/home/Home";
+import AlertMessageProvider from "./components/alert/AlertMessageProvider";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
 
       <Container sx={{ minHeight: '80%', mt: '3em' }}>
         <LoadingProvider>
+        <AlertMessageProvider>
         <Routes>
           <Route path='/zssn-react' element={<Home />} />
           <Route path='/sobreviventes' element={<Sobreviventes />} />
@@ -25,6 +27,7 @@ function App() {
           <Route path='/comercio' element={<Comercio />} />
           <Route path='/relatorios' element={<Relatorios />} />
         </Routes>
+        </AlertMessageProvider>
         </LoadingProvider>
       </Container>
 
