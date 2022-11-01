@@ -12,6 +12,9 @@ function SobreviventeDetails({ sobrevivente, detailsOpen, setDetailsOpen }) {
                     {sobrevivente.nome}
                 </DialogTitle>
                 <DialogContent>
+                <DialogContentText id="alert-dialog-id">
+                        Id: {sobrevivente.id}
+                    </DialogContentText>
                     <DialogContentText id="alert-dialog-idade">
                         Idade: {sobrevivente.idade} anos
                     </DialogContentText>
@@ -19,10 +22,10 @@ function SobreviventeDetails({ sobrevivente, detailsOpen, setDetailsOpen }) {
                         Sexo: {sobrevivente.sexo === 'm' ? 'Masculino' : 'Feminino'}
                     </DialogContentText>
                     <DialogContentText id="alert-dialog-lat">
-                        Latitude: {sobrevivente.latitude} °
+                        Latitude: {sobrevivente.latitude}°
                     </DialogContentText>
                     <DialogContentText id="alert-dialog-long">
-                        Longitude: {sobrevivente.longitude} °
+                        Longitude: {sobrevivente.longitude}°
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>

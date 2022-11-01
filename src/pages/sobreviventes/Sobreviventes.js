@@ -56,7 +56,6 @@ function Sobreviventes() {
           <Table sx={{ minWidth: 300 }} size="small" aria-label="a dense table">
             <TableHead>
               <TableRow>
-                <TableCell>Id</TableCell>
                 <TableCell align="center">Nome</TableCell>
                 <TableCell align="center">Infectado</TableCell>
                 <TableCell align="center">Alertas</TableCell>
@@ -68,9 +67,6 @@ function Sobreviventes() {
                 <TableRow
                   key={index}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                  <TableCell component="th" scope="row">
-                    {sobrevivente.id}
-                  </TableCell>
                   <TableCell align="center">
                     <Button style={nameButtonStyles} onClick={() => openDetails(sobrevivente)}>
                       {sobrevivente.nome}

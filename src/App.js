@@ -16,7 +16,7 @@ function App() {
     <Router>
       <Navbar />
 
-      <Container sx={{ minHeight: '80%', mt: '3em', pb: '1em' }}>
+      <Container sx={{ minHeight: 'calc(100vh - 160px)' ,mt: '3em', pb: '1em' }}>
         <LoadingProvider>
         <AlertMessageProvider>
         <Routes>
