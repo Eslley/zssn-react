@@ -43,6 +43,12 @@ function SobreviventeForm({ open, setOpen, atualizarSobreviventes }) {
         });
 
         data.inventario = inventario
+
+        if(data.inventario.length === 0){
+            stopLoader()
+            showAlert('', 'Não é possível cadastrar sobreviventes com inventário vazio!', 'warning', 4000)
+            return
+        }
         
         sobreviventesService.salvar(data)
             .then(res => {
