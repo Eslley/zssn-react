@@ -1,6 +1,6 @@
-import { Button, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip } from '@mui/material';
+import { Button, Fab, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip } from '@mui/material';
 import Paper from '@mui/material/Paper';
-import { ReportProblem, EditLocation, People } from '@mui/icons-material/';
+import { ReportProblem, EditLocation, People, Add } from '@mui/icons-material/';
 import zombie from '../../img/zombie.png'
 import { useEffect, useState } from 'react';
 import { Box } from '@mui/system';
@@ -8,6 +8,7 @@ import sobreviventesService from '../../providers/http-service/sobreviventesServ
 import { useLoader } from '../../components/loading/LoadingProvider';
 import SobreviventeDetails from './SobreviventeDetails';
 import PageTitle from '../../components/layout/PageTitle';
+import SobreviventeForm from './SobreviventeForm';
 
 const nameButtonStyles = {
   textTransform: 'none'
@@ -17,6 +18,7 @@ function Sobreviventes() {
 
   const [sobreviventes, setSobreviventes] = useState([])
 
+  const [openForm, setOpenForm] = useState(false)
   const [detailsOpen, setDetailsOpen] = useState(false)
 
   const { startLoader, stopLoader } = useLoader()
@@ -47,11 +49,15 @@ function Sobreviventes() {
     setDetailsOpen(true)
   }
 
+  function handleOpenForm() {
+    setOpenForm(true)
+  }
+
   return (
     <>
       <PageTitle title="Sobreviventes" icon={(<People />)} />
 
-      {sobreviventes.length > 0 ? (
+      {sobreviventes.length > 0 && !openForm ? (
         <TableContainer sx={{ overflowX: 'hidden' }} component={Paper}>
           <Table sx={{ minWidth: 300 }} size="small" aria-label="a dense table">
             <TableHead>
@@ -80,15 +86,19 @@ function Sobreviventes() {
                   <TableCell align="center">{sobrevivente.countAlertInfected}</TableCell>
                   <TableCell align="center">
                     <Tooltip title="Editar localização" arrow>
+                      <span>
                       <IconButton disabled={sobrevivente.estaInfectado} aria-label="delete" color="primary">
                         <EditLocation />
                       </IconButton>
+                      </span>
                     </Tooltip>
 
                     <Tooltip title="Alertar infecção" arrow>
+                      <span>
                       <IconButton disabled={sobrevivente.estaInfectado} aria-label="report" color="error">
                         <ReportProblem />
                       </IconButton>
+                      </span>
                     </Tooltip>
                   </TableCell>
                 </TableRow>
@@ -97,10 +107,25 @@ function Sobreviventes() {
           </Table>
         </TableContainer>
       ) :
-        <Box>
-          <p>Não há sobreviventes!</p>
+        <>
+          {!openForm &&
+            <Box>
+              <p>Não há sobreviventes!</p>
+            </Box>
+          }
+        </>
+      }
+
+      {!openForm &&
+        <Box sx={{ mt: '2em', textAlign: 'center' }}>
+          <Fab onClick={handleOpenForm} variant="extended" color="primary" aria-label="add">
+            <Add />
+            Adicionar Sobrevivente
+          </Fab>
         </Box>
       }
+
+      <SobreviventeForm open={openForm} setOpen={setOpenForm} />
 
       {/* Component que exibe detalhes do sobrevivente */}
       <SobreviventeDetails sobrevivente={sobrevivente} detailsOpen={detailsOpen} setDetailsOpen={setDetailsOpen} />
