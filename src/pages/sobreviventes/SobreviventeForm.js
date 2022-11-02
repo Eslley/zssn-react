@@ -5,23 +5,59 @@ import { useEffect, useState } from "react"
 import { useForm, Controller } from "react-hook-form"
 import util from "../../providers/utils/util"
 import itensSercice from "../../providers/http-service/itensService"
+import sobreviventesService from "../../providers/http-service/sobreviventesService"
+import { useAlertMessage } from "../../components/alert/AlertMessageProvider"
+import { useLoader } from "../../components/loading/LoadingProvider"
 
 const defaulValues = {
     nome: '',
     idade: '',
     sexo: '',
     latitude: '',
-    longitude: ''
+    longitude: '',
+    inventario: []
 }
 
-function SobreviventeForm({ open, setOpen }) {
+function SobreviventeForm({ open, setOpen, atualizarSobreviventes }) {
 
-    const { register, formState: { errors }, handleSubmit, reset, control } = useForm({ mode: 'onChange' })
+    const { register, formState: { errors }, handleSubmit, reset, control } = useForm(
+        { mode: 'onChange',
+        defaultValues: { ...defaulValues} })
 
     const [itens, setItens] = useState()
 
+    const { startLoader, stopLoader } = useLoader()
+    const { showAlert }  = useAlertMessage()
+
     function submit(data) {
-        console.log(data)
+        
+        startLoader()
+
+        let inventario = []
+        data.inventario.forEach((item, index)=> {
+            if(item.quantidade !== '')
+                inventario.push({
+                    id: index,
+                    quantidade: item.quantidade
+                })
+        });
+
+        data.inventario = inventario
+        
+        sobreviventesService.salvar(data)
+            .then(res => {
+
+                if(res.status === 201) {
+
+                    atualizarSobreviventes()
+                    showAlert('', 'Sobrevivente cadastrado com sucesso!', 'success', 4000)
+                    resetForm()
+                }
+
+                stopLoader()
+
+            })
+            .catch(err => console.log(err))
     }
 
     useEffect(() => {
@@ -150,7 +186,7 @@ function SobreviventeForm({ open, setOpen }) {
                                 <Table sx={{ minWidth: 300 }} aria-label="a dense table">
                                     <TableHead>
                                         <TableRow>
-                                            <TableCell sx={{ fontSize: '16px' }}>Item</TableCell>
+                                            <TableCell sx={{ fontSize: '16px' }} align="center">Item</TableCell>
                                             <TableCell sx={{ fontSize: '16px' }} align="center">Pontos</TableCell>
                                             <TableCell sx={{ fontSize: '16px' }} align="center">Quantidade</TableCell>
                                         </TableRow>
@@ -158,7 +194,7 @@ function SobreviventeForm({ open, setOpen }) {
                                     <TableBody>
                                         {itens.map((item, index) => (
                                             <TableRow key={index}>
-                                                <TableCell sx={{ fontSize: '16px' }}>
+                                                <TableCell sx={{ fontSize: '16px' }} align="center">
                                                     {item.nome}
                                                 </TableCell>
                                                 <TableCell sx={{ fontSize: '16px' }} align="center">
@@ -170,14 +206,13 @@ function SobreviventeForm({ open, setOpen }) {
                                                         margin="normal"
                                                         label="Qtd"
                                                         type="number"
-                                                        name={`item${item.id}`}
-                                                        {...register(`item${item.id}`, {
+                                                        name={`inventario.${item.id}.quantidade`}
+                                                        {...register(`inventario.${item.id}.quantidade`, {
                                                             pattern: {
                                                                 value: /^\d{0,5}$/,
                                                                 message: "Quantidade inválida"
                                                             }
                                                         })}
-                                                        error={!!errors[`item${item.id}`]}
                                                     />
                                                 </TableCell>
                                             </TableRow>
