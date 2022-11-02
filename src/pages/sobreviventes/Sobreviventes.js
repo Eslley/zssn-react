@@ -30,6 +30,11 @@ function Sobreviventes() {
 
   useEffect(() => {
 
+    listarSobreviventes()
+
+  }, [])
+
+  function listarSobreviventes() {
     startLoader()
 
     sobreviventesService.listar()
@@ -46,8 +51,7 @@ function Sobreviventes() {
         showAlert('Erro', 'Erro ao acessar servidor!', 'error', 5000)
         stopLoader()
       })
-
-  }, [])
+  }
 
   function openDetails(moreInfo) {
     setSobrevivente(moreInfo)
@@ -130,7 +134,7 @@ function Sobreviventes() {
         </Box>
       }
 
-      <SobreviventeForm open={openForm} setOpen={setOpenForm} />
+      <SobreviventeForm open={openForm} setOpen={setOpenForm} atualizarSobreviventes={listarSobreviventes} />
 
       {/* Component que exibe detalhes do sobrevivente */}
       <SobreviventeDetails sobrevivente={sobrevivente} detailsOpen={detailsOpen} setDetailsOpen={setDetailsOpen} />
