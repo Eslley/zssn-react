@@ -9,6 +9,7 @@ import { useLoader } from '../../components/loading/LoadingProvider';
 import SobreviventeDetails from './SobreviventeDetails';
 import PageTitle from '../../components/layout/PageTitle';
 import SobreviventeForm from './SobreviventeForm';
+import { useAlertMessage } from '../../components/alert/AlertMessageProvider';
 
 const nameButtonStyles = {
   textTransform: 'none'
@@ -25,6 +26,8 @@ function Sobreviventes() {
 
   const [sobrevivente, setSobrevivente] = useState({})
 
+  const { showAlert }  = useAlertMessage()
+
   useEffect(() => {
 
     startLoader()
@@ -40,6 +43,8 @@ function Sobreviventes() {
       })
       .catch(err => {
         console.log(err)
+        showAlert('Erro', 'Erro ao acessar servidor!', 'error', 5000)
+        stopLoader()
       })
 
   }, [])
