@@ -77,6 +77,7 @@ function Sobreviventes() {
 
   function closeAlertaInfeccao() {
     setInfeccaoOpen(false)
+    setIdInformante('')
   }
 
   function submitAlerta(e) {
@@ -91,6 +92,7 @@ function Sobreviventes() {
           showAlert('', res.data.message, 'success', 4000)
 
           listarSobreviventes()
+          setIdInformante('')
           setInfeccaoOpen(false)
         }
 
@@ -212,7 +214,7 @@ function Sobreviventes() {
           </DialogContent>
           <DialogActions>
             <Button onClick={closeAlertaInfeccao}>Cancelar</Button>
-            <Button type="submit">Confirmar</Button>
+            <Button disabled={idInformante === ''} type="submit">Confirmar</Button>
           </DialogActions>
         </form>
       </Dialog>
