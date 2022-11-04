@@ -5,7 +5,8 @@ import zombie from '../../img/zombie.png'
 function SobreviventesTable({
     sobreviventes,
     openDetails,
-    openAlertaInfeccao
+    openAlertaInfeccao,
+    openEditaLocalizacao
 }) {
   return (
     <TableContainer sx={{ overflowX: 'hidden' }} component={Paper}>
@@ -37,7 +38,7 @@ function SobreviventesTable({
                   <TableCell align="center">
                     <Tooltip title="Editar localização" arrow>
                       <span>
-                        <IconButton disabled={sobrevivente.estaInfectado} aria-label="delete" color="primary">
+                        <IconButton onClick={() => openEditaLocalizacao(sobrevivente)} disabled={sobrevivente.estaInfectado} aria-label="delete" color="primary">
                           <EditLocation />
                         </IconButton>
                       </span>

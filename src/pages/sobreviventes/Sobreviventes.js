@@ -10,6 +10,7 @@ import ModalInfeccao from './ModalInfeccao';
 import SobreviventesTable from './SobreviventesTable';
 import { Add, People } from '@mui/icons-material';
 import { Fab } from '@mui/material';
+import ModalLocalizacao from './ModalLocalizacao';
 
 function Sobreviventes() {
 
@@ -22,6 +23,14 @@ function Sobreviventes() {
   const [openForm, setOpenForm] = useState(false)
   const [detailsOpen, setDetailsOpen] = useState(false)
   const [infeccaoOpen, setInfeccaoOpen] = useState(false)
+  const [localizacaoOpen, setLocalizacaoOpen] = useState(false)
+
+  const [localizacao, setLocalizacao] = useState({
+    idSobrevivente: '',
+    nome: '',
+    latitude: '',
+    longitude: ''
+  })
 
   const { startLoader, stopLoader } = useLoader()
 
@@ -110,15 +119,29 @@ function Sobreviventes() {
     setIdInformante(e.target.value)
   }
 
+  function openEditaLocalizacao(sobrevivente) {
+    setLocalizacao({
+      idSobrevivente: sobrevivente.id,
+      nome: sobrevivente.nome
+    })
+    setLocalizacaoOpen(true)
+  }
+
+  function closeEditaLocalizao() {
+    setLocalizacao({})
+    setLocalizacaoOpen(false)
+  }
+
   return (
     <>
       <PageTitle title="Sobreviventes" icon={(<People />)} />
 
       {sobreviventes.length > 0 && !openForm ? (
-        <SobreviventesTable 
-        sobreviventes={sobreviventes}
-        openDetails={openDetails}
-        openAlertaInfeccao={openAlertaInfeccao} />
+        <SobreviventesTable
+          sobreviventes={sobreviventes}
+          openDetails={openDetails}
+          openAlertaInfeccao={openAlertaInfeccao}
+          openEditaLocalizacao={openEditaLocalizacao} />
       ) :
         <>
           {!openForm &&
@@ -151,6 +174,13 @@ function Sobreviventes() {
         handleInformanteChange={handleInformanteChange}
         selectSobreviventes={selectSobreviventes}
         idInformante={idInformante} />
+
+      {/* Modal para edição da localização */}
+      <ModalLocalizacao
+        localizacao={localizacao}
+        localizacaoOpen={localizacaoOpen}
+        closeEditaLocalizao={closeEditaLocalizao}
+        atualizarSobreviventes={listarSobreviventes} />
 
     </>
   );
