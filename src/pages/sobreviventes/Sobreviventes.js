@@ -10,10 +10,7 @@ import SobreviventeDetails from './SobreviventeDetails';
 import PageTitle from '../../components/layout/PageTitle';
 import SobreviventeForm from './SobreviventeForm';
 import { useAlertMessage } from '../../components/alert/AlertMessageProvider';
-
-const nameButtonStyles = {
-  textTransform: 'none'
-}
+import ModalInfeccao from './ModalInfeccao';
 
 function Sobreviventes() {
 
@@ -21,7 +18,7 @@ function Sobreviventes() {
   const [idInformante, setIdInformante] = useState('')
   const [idContaminado, setIdContaminado] = useState('')
 
-  const [ selectSobreviventes, setSelectSobreviventes ] = useState([])
+  const [selectSobreviventes, setSelectSobreviventes] = useState([])
 
   const [openForm, setOpenForm] = useState(false)
   const [detailsOpen, setDetailsOpen] = useState(false)
@@ -83,11 +80,11 @@ function Sobreviventes() {
   function submitAlerta(e) {
     startLoader()
     e.preventDefault()
-    
+
     sobreviventesService.alertInfected(idInformante, idContaminado)
       .then(res => {
 
-        if(res.status === 200) {
+        if (res.status === 200) {
 
           showAlert('', res.data.message, 'success', 4000)
 
@@ -100,7 +97,7 @@ function Sobreviventes() {
 
       })
       .catch(err => {
-        if(!!err.message) {
+        if (!!err.message) {
           showAlert('', err.message, 'info', 5000)
         }
 
@@ -135,7 +132,7 @@ function Sobreviventes() {
                   key={index}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                   <TableCell align="center">
-                    <Button style={nameButtonStyles} onClick={() => openDetails(sobrevivente)}>
+                    <Button sx={{ textTransform: 'none' }} onClick={() => openDetails(sobrevivente)}>
                       {sobrevivente.nome}
                     </Button>
                   </TableCell>
@@ -193,31 +190,12 @@ function Sobreviventes() {
 
 
       {/* Modal para informar infecção */}
-      <Dialog open={infeccaoOpen} onClose={closeAlertaInfeccao}>
-        <DialogTitle>Alerta de Contaminação</DialogTitle>
-        <form onSubmit={submitAlerta}>
-          <DialogContent>
-            <FormControl fullWidth>
-              <InputLabel id="select-label">Informante</InputLabel>
-              <Select
-                labelId="select-label"
-                id="select"
-                value={idInformante}
-                label="Informante"
-                onChange={handleInformanteChange}
-              >
-                {selectSobreviventes.map((sobrevivente, index) => 
-                  <MenuItem key={index} value={sobrevivente.id}>{sobrevivente.nome}</MenuItem> 
-                )}
-              </Select>
-            </FormControl>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={closeAlertaInfeccao}>Cancelar</Button>
-            <Button disabled={idInformante === ''} type="submit">Confirmar</Button>
-          </DialogActions>
-        </form>
-      </Dialog>
+      <ModalInfeccao infeccaoOpen={infeccaoOpen}
+        closeAlertaInfeccao={closeAlertaInfeccao}
+        submitAlerta={submitAlerta}
+        handleInformanteChange={handleInformanteChange}
+        selectSobreviventes={selectSobreviventes}
+        idInformante={idInformante} />
 
     </>
   );
