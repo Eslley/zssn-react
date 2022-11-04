@@ -1,7 +1,3 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Fab, FormControl, IconButton, InputLabel, MenuItem, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Tooltip } from '@mui/material';
-import Paper from '@mui/material/Paper';
-import { ReportProblem, EditLocation, People, Add } from '@mui/icons-material/';
-import zombie from '../../img/zombie.png'
 import { useEffect, useState } from 'react';
 import { Box } from '@mui/system';
 import sobreviventesService from '../../providers/http-service/sobreviventesService';
@@ -11,6 +7,9 @@ import PageTitle from '../../components/layout/PageTitle';
 import SobreviventeForm from './SobreviventeForm';
 import { useAlertMessage } from '../../components/alert/AlertMessageProvider';
 import ModalInfeccao from './ModalInfeccao';
+import SobreviventesTable from './SobreviventesTable';
+import { Add, People } from '@mui/icons-material';
+import { Fab } from '@mui/material';
 
 function Sobreviventes() {
 
@@ -116,54 +115,10 @@ function Sobreviventes() {
       <PageTitle title="Sobreviventes" icon={(<People />)} />
 
       {sobreviventes.length > 0 && !openForm ? (
-        <TableContainer sx={{ overflowX: 'hidden' }} component={Paper}>
-          <Table sx={{ minWidth: 300 }} size="small" aria-label="a dense table">
-            <TableHead>
-              <TableRow>
-                <TableCell align="center">Nome</TableCell>
-                <TableCell align="center">Infectado</TableCell>
-                <TableCell align="center">Alertas</TableCell>
-                <TableCell align="center">Opções</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {sobreviventes.map((sobrevivente, index) => (
-                <TableRow
-                  key={index}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                  <TableCell align="center">
-                    <Button sx={{ textTransform: 'none' }} onClick={() => openDetails(sobrevivente)}>
-                      {sobrevivente.nome}
-                    </Button>
-                  </TableCell>
-                  <TableCell align="center">
-                    {sobrevivente.estaInfectado ?
-                      <img style={{ width: '2em' }} src={zombie} /> :
-                      'Não'}
-                  </TableCell>
-                  <TableCell align="center">{sobrevivente.countAlertInfected}</TableCell>
-                  <TableCell align="center">
-                    <Tooltip title="Editar localização" arrow>
-                      <span>
-                        <IconButton disabled={sobrevivente.estaInfectado} aria-label="delete" color="primary">
-                          <EditLocation />
-                        </IconButton>
-                      </span>
-                    </Tooltip>
-
-                    <Tooltip title="Alertar infecção" arrow>
-                      <span>
-                        <IconButton onClick={() => openAlertaInfeccao(sobrevivente.id)} disabled={sobrevivente.estaInfectado} aria-label="report" color="error">
-                          <ReportProblem />
-                        </IconButton>
-                      </span>
-                    </Tooltip>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <SobreviventesTable 
+        sobreviventes={sobreviventes}
+        openDetails={openDetails}
+        openAlertaInfeccao={openAlertaInfeccao} />
       ) :
         <>
           {!openForm &&
