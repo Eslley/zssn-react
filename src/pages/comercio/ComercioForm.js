@@ -1,4 +1,4 @@
-import { Search } from "@mui/icons-material"
+import { PersonSearch } from "@mui/icons-material"
 import { Box, Fab, FormControl, Grid, InputLabel, MenuItem, Select } from "@mui/material"
 import { useForm, Controller } from "react-hook-form"
 import { useAlertMessage } from "../../components/alert/AlertMessageProvider"
@@ -67,7 +67,7 @@ function ComercioForm({ search, selectSobreviventes }) {
 
             <Box sx={{ mt: '2em', textAlign: 'center' }}>
                 <Fab disabled={!isValid} type="submit" variant="extended" color="primary" aria-label="add">
-                    <Search />
+                    <PersonSearch />
                     Buscar Inventários
                 </Fab>
             </Box>
