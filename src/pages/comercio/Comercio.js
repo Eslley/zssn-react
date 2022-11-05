@@ -1,5 +1,5 @@
-import { Search, SwapHoriz } from "@mui/icons-material"
-import { Box, Card, CardContent, Divider, Fab, FormControl, Grid, InputLabel, List, ListItem, ListItemText, MenuItem, Select, TextField, Typography } from "@mui/material"
+import {  SwapHoriz } from "@mui/icons-material"
+import { Grid } from "@mui/material"
 import { useEffect, useState } from "react"
 
 import { useAlertMessage } from "../../components/alert/AlertMessageProvider"
@@ -7,6 +7,7 @@ import PageTitle from "../../components/layout/PageTitle"
 import { useLoader } from "../../components/loading/LoadingProvider"
 import inventariosService from "../../providers/http-service/inventariosService"
 import sobreviventesService from "../../providers/http-service/sobreviventesService"
+import ComercioCard from "./ComercioCard"
 import ComercioForm from "./ComercioForm"
 
 function Comercio() {
@@ -31,6 +32,7 @@ function Comercio() {
         if (s1.status === 200 && s2.status === 200) {
           setSobrevivente1(s1.data)
           setSobrevivente2(s2.data)
+          console.log(s1.data)
         }
 
         stopLoader()
@@ -81,43 +83,16 @@ function Comercio() {
       <PageTitle title="Comércio" icon={(<SwapHoriz />)} />
 
       {sobrevivente1 && sobrevivente2 ?
-        <Box sx={{ minWidth: 250 }}>
-          <Card style={{ height: '100%' }}>
-            <CardContent>
-              <Typography variant="h5" component="div">
-                {sobrevivente1.sobrevivente}
-              </Typography>
-              <Divider />
+        <Grid container justifyContent="center" columnSpacing={2} rowSpacing={2}>
+          <Grid container item justifyContent='center' xs={12} md={6}>
+            <ComercioCard sobrevivente={sobrevivente1} />
+          </Grid>
 
-              <Typography sx={{ mb: 1.5, mt: 1.5 }} color="text.secondary">
-                Inventário:
-              </Typography>
-              <List>
-                <Divider />
-                <ListItem >
-                  <ListItemText primary="pri" />
-                </ListItem>
-              </List>
-
-              <Typography sx={{ mb: 1.5, mt: 1.5 }} color="text.secondary">
-                Itens Ofertados:
-              </Typography>
-              <List>
-                <Divider />
-                <ListItem >
-                  <ListItemText
-                    primary="Teste"
-                    secondary="Sub"
-                  />
-                </ListItem>
-              </List>
-
-              <Typography sx={{ mb: 1.5, mt: 1.5 }} color="text.secondary">
-                Total de Pontos Ofertados:
-              </Typography>
-            </CardContent>
-          </Card>
-        </Box> :
+          <Grid container item justifyContent='center' xs={12} md={6}>
+            <ComercioCard sobrevivente={sobrevivente2} />
+          </Grid>
+        </Grid>
+        :
         <ComercioForm search={search} selectSobreviventes={selectSobreviventes} />
       }
     </>
