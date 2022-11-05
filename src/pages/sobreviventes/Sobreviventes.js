@@ -8,7 +8,7 @@ import SobreviventeForm from './SobreviventeForm';
 import { useAlertMessage } from '../../components/alert/AlertMessageProvider';
 import ModalInfeccao from './ModalInfeccao';
 import SobreviventesTable from './SobreviventesTable';
-import { Add, People } from '@mui/icons-material';
+import { Add, Groups, People } from '@mui/icons-material';
 import { Fab } from '@mui/material';
 import ModalLocalizacao from './ModalLocalizacao';
 
@@ -134,7 +134,7 @@ function Sobreviventes() {
 
   return (
     <>
-      <PageTitle title="Sobreviventes" icon={(<People />)} />
+      <PageTitle title="Sobreviventes" icon={(<Groups />)} />
 
       {sobreviventes.length > 0 && !openForm ? (
         <SobreviventesTable
