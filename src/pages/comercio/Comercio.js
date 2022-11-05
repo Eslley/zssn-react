@@ -1,10 +1,13 @@
 import { Search, SwapHoriz } from "@mui/icons-material"
-import { Box, Card, CardContent, Divider, Fab, List, ListItem, ListItemText, Typography } from "@mui/material"
+import { Box, Card, CardContent, Divider, Fab, FormControl, Grid, InputLabel, List, ListItem, ListItemText, MenuItem, Select, TextField, Typography } from "@mui/material"
 import { useEffect, useState } from "react"
+
 import { useAlertMessage } from "../../components/alert/AlertMessageProvider"
 import PageTitle from "../../components/layout/PageTitle"
 import { useLoader } from "../../components/loading/LoadingProvider"
 import inventariosService from "../../providers/http-service/inventariosService"
+import sobreviventesService from "../../providers/http-service/sobreviventesService"
+import ComercioForm from "./ComercioForm"
 
 function Comercio() {
 
@@ -13,11 +16,17 @@ function Comercio() {
   const [sobrevivente1, setSobrevivente1] = useState()
   const [sobrevivente2, setSobrevivente2] = useState()
 
-  function search() {
+  const [selectSobreviventes, setSelectSobreviventes] = useState([])
+
+  useEffect(() => {
+    listarSobreviventes()
+  }, [])
+
+  function search(id1, id2) {
     startLoader()
 
-    inventariosService.getInventario(3).then(s1 => {
-      inventariosService.getInventario(4).then(s2 => {
+    inventariosService.getInventario(id1).then(s1 => {
+      inventariosService.getInventario(id2).then(s2 => {
 
         if (s1.status === 200 && s2.status === 200) {
           setSobrevivente1(s1.data)
@@ -43,6 +52,27 @@ function Comercio() {
           showAlert('', err.response.data.message, 'error', 4000)
         else
           showAlert('', 'Erro ao buscar sobrevivente', 'error', 4000)
+      })
+  }
+
+  function listarSobreviventes() {
+    startLoader()
+
+    sobreviventesService.listar()
+      .then(res => {
+        if (res.status === 200) {
+          const select = res.data.filter((s) => !s.estaInfectado)
+
+          setSelectSobreviventes(select)
+        }
+
+        stopLoader()
+
+      })
+      .catch(err => {
+        console.log(err)
+        showAlert('Erro', 'Erro ao acessar servidor!', 'error', 5000)
+        stopLoader()
       })
   }
 
@@ -87,16 +117,9 @@ function Comercio() {
               </Typography>
             </CardContent>
           </Card>
-        </Box> 
-        :
-        <Box sx={{ mt: '2em', textAlign: 'center' }}>
-          <Fab onClick={search} variant="extended" color="primary" aria-label="add">
-            <Search />
-            Buscar sobreviventes
-          </Fab>
-        </Box>
+        </Box> :
+        <ComercioForm search={search} selectSobreviventes={selectSobreviventes} />
       }
-
     </>
   )
 }
