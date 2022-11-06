@@ -5,7 +5,7 @@ function ComercioCard({ sobrevivente }) {
 
     return (
         <Box textAlign="center" sx={{ minWidth: 250, width: { xs: '95%', sm: '70%', md: '75%' } }}>
-            <Card variant="outlined" style={{ height: '100%', backgroundColor: 'rgba(51, 153, 255, 0.1)' }}>
+            <Card variant="outlined" style={{ height: '100%', backgroundColor: '#3399ff1a' }}>
                 <CardContent>
                     <Typography mb="0.4em" textAlign="center" variant="h5" component="div">
                         {sobrevivente.sobrevivente}
