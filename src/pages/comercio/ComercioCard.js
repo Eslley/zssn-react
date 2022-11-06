@@ -1,8 +1,33 @@
 import { ArrowBack, ArrowForward, Inventory, SwapVert } from "@mui/icons-material"
 import { Avatar, Box, Card, CardContent, Chip, Divider, IconButton, List, ListItem, ListItemText, Tooltip, Typography } from "@mui/material"
-import { Stack } from "@mui/system"
 
-function ComercioCard({ sobrevivente }) {
+function ComercioCard({ sobrevivente, setSobrevivente, showAlert }) {
+
+    function removeItem(item) {
+        if (item.oferecido === 0) {
+            showAlert('', 'Você não ofereceu nenhuma quantidade deste item!', 'info', 4000)
+            return
+        }
+
+        item.oferecido -= 1
+        item.quantidade += 1
+        sobrevivente.totalPontos -= item.item.pontos
+
+        setSobrevivente({ ...sobrevivente })
+    }
+
+    function addItem(item) {
+        if (item.quantidade === 0) {
+            showAlert('', 'Você não pode mais oferecer este item!', 'info', 4000)
+            return
+        }
+
+        item.oferecido += 1
+        item.quantidade -= 1
+        sobrevivente.totalPontos += item.item.pontos
+
+        setSobrevivente({ ...sobrevivente })
+    }
 
     return (
         <Box textAlign="center" sx={{ minWidth: 250, width: { xs: '95%', sm: '70%', md: '75%' } }}>
@@ -56,13 +81,13 @@ function ComercioCard({ sobrevivente }) {
                                 secondaryAction={
                                     <>
                                         <Tooltip title="Retirar 1">
-                                            <IconButton aria-label="arrow forward">
+                                            <IconButton onClick={() => removeItem(item)} aria-label="arrow forward">
                                                 <ArrowBack color="primary" />
                                             </IconButton>
                                         </Tooltip>
 
                                         <Tooltip title="Ofertar 1">
-                                            <IconButton aria-label="arrow forward">
+                                            <IconButton onClick={() => addItem(item)} aria-label="arrow forward">
                                                 <ArrowForward color="primary" />
                                             </IconButton>
                                         </Tooltip>
@@ -77,8 +102,8 @@ function ComercioCard({ sobrevivente }) {
 
                     <Divider />
 
-                    <Typography sx={{ mb: 1.5, mt: 1.5, textAlign: 'center' }} color="text.secondary">
-                        Total de Pontos Ofertados:
+                    <Typography sx={{ mt: 1.5, textAlign: 'center' }} color="text.secondary">
+                        Total de Pontos Ofertados: {sobrevivente.totalPontos}
                     </Typography>
                 </CardContent>
             </Card>

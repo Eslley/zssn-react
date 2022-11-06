@@ -1,7 +1,6 @@
-import {  SwapHoriz } from "@mui/icons-material"
-import { Grid } from "@mui/material"
+import { SwapHoriz } from "@mui/icons-material"
+import { Fab, Grid } from "@mui/material"
 import { useEffect, useState } from "react"
-
 import { useAlertMessage } from "../../components/alert/AlertMessageProvider"
 import PageTitle from "../../components/layout/PageTitle"
 import { useLoader } from "../../components/loading/LoadingProvider"
@@ -38,6 +37,9 @@ function Comercio() {
           s2.data.itens.forEach(element => {
             element.oferecido = 0
           })
+
+          s1.data.totalPontos = 0
+          s2.data.totalPontos = 0
 
           setSobrevivente1(s1.data)
           setSobrevivente2(s2.data)
@@ -86,6 +88,11 @@ function Comercio() {
       })
   }
 
+  function requestTroca() {
+    console.log(sobrevivente1)
+    console.log(sobrevivente2)
+  }
+
   return (
     <>
       <PageTitle title="Comércio" icon={(<SwapHoriz />)} />
@@ -93,11 +100,18 @@ function Comercio() {
       {sobrevivente1 && sobrevivente2 ?
         <Grid container justifyContent="center" columnSpacing={2} rowSpacing={2}>
           <Grid container item justifyContent='center' xs={12} md={6}>
-            <ComercioCard sobrevivente={sobrevivente1} />
+            <ComercioCard sobrevivente={sobrevivente1} setSobrevivente={setSobrevivente1} showAlert={showAlert} />
           </Grid>
 
           <Grid container item justifyContent='center' xs={12} md={6}>
-            <ComercioCard sobrevivente={sobrevivente2} />
+            <ComercioCard sobrevivente={sobrevivente2} setSobrevivente={setSobrevivente2} showAlert={showAlert} />
+          </Grid>
+
+          <Grid container item justifyContent="center" xs={12}>
+            <Fab disabled={ sobrevivente1.totalPontos === 0 || !(sobrevivente1.totalPontos === sobrevivente2.totalPontos)} onClick={requestTroca} variant="extended" color="primary" aria-label="add">
+              <SwapHoriz />
+              Trocar
+            </Fab>
           </Grid>
         </Grid>
         :
