@@ -30,9 +30,17 @@ function Comercio() {
       inventariosService.getInventario(id2).then(s2 => {
 
         if (s1.status === 200 && s2.status === 200) {
+
+          s1.data.itens.forEach(element => {
+            element.oferecido = 0
+          })
+
+          s2.data.itens.forEach(element => {
+            element.oferecido = 0
+          })
+
           setSobrevivente1(s1.data)
           setSobrevivente2(s2.data)
-          console.log(s1.data)
         }
 
         stopLoader()
@@ -41,7 +49,7 @@ function Comercio() {
         .catch(err => {
           console.log(err)
           stopLoader()
-          if (err.response.data.message)
+          if (!!err.response.data.message)
             showAlert('', err.response.data.message, 'error', 4000)
           else
             showAlert('', 'Erro ao buscar sobrevivente', 'error', 4000)
@@ -50,7 +58,7 @@ function Comercio() {
       .catch(err => {
         console.log(err)
         stopLoader()
-        if (err.response.data.message)
+        if (!!err.response.data.message)
           showAlert('', err.response.data.message, 'error', 4000)
         else
           showAlert('', 'Erro ao buscar sobrevivente', 'error', 4000)

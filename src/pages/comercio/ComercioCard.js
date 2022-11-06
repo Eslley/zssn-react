@@ -1,5 +1,6 @@
 import { ArrowBack, ArrowForward, Inventory, SwapVert } from "@mui/icons-material"
-import { Box, Card, CardContent, Divider, IconButton, List, ListItem, ListItemText, Typography } from "@mui/material"
+import { Avatar, Box, Card, CardContent, Chip, Divider, IconButton, List, ListItem, ListItemText, Tooltip, Typography } from "@mui/material"
+import { Stack } from "@mui/system"
 
 function ComercioCard({ sobrevivente }) {
 
@@ -24,30 +25,24 @@ function ComercioCard({ sobrevivente }) {
 
                     <Divider />
 
-                    <List>
+                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, marginY: '1em' }}>
                         {sobrevivente.itens.map((item, index) => (
-                            <ListItem
+                            <Chip
                                 key={index}
-                                secondaryAction={
-                                    <IconButton aria-label="arrow forward">
-                                        <ArrowForward color="primary" />
-                                        <Typography>Ofertar 1</Typography>
-                                    </IconButton>
-                                }>
-                                <ListItemText primary={`${item.item.nome}: ${item.quantidade}x`} />
-                            </ListItem>
+                                label={item.item.nome}
+                                avatar={<Avatar>{item.quantidade}x</Avatar>} />
                         ))}
-                    </List>
+                    </Box>
 
                     <Divider />
 
-                    <Typography textAlign="center" 
-                    sx={{
-                        mb: 1.5, mt: 1.5,
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center'
-                    }} color="text.secondary">
+                    <Typography textAlign="center"
+                        sx={{
+                            mb: 1.5, mt: 1.5,
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }} color="text.secondary">
                         <SwapVert fontSize="large" />
                         Itens Ofertados
                     </Typography>
@@ -55,17 +50,29 @@ function ComercioCard({ sobrevivente }) {
                     <Divider />
 
                     <List>
-                        <ListItem
-                            secondaryAction={
-                                <IconButton aria-label="arrow forward">
-                                    <ArrowBack color="primary" />
-                                    <Typography>Retirar 1</Typography>
-                                </IconButton>
-                            }>
-                            <ListItemText
-                                primary="Teste"
-                            />
-                        </ListItem>
+                        {sobrevivente.itens.map((item, index) => (
+                            <ListItem
+                                key={index}
+                                secondaryAction={
+                                    <>
+                                        <Tooltip title="Retirar 1">
+                                            <IconButton aria-label="arrow forward">
+                                                <ArrowBack color="primary" />
+                                            </IconButton>
+                                        </Tooltip>
+
+                                        <Tooltip title="Ofertar 1">
+                                            <IconButton aria-label="arrow forward">
+                                                <ArrowForward color="primary" />
+                                            </IconButton>
+                                        </Tooltip>
+                                    </>
+                                }>
+                                <ListItemText
+                                    primary={`${item.item.nome}: ${item.oferecido}x`}
+                                />
+                            </ListItem>
+                        ))}
                     </List>
 
                     <Divider />
