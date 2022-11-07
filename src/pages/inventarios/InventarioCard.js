@@ -3,7 +3,7 @@ import { Box, Button, Card, CardActions, CardContent, Divider, List, ListItem, L
 function InventarioCard({ sobrevivente, totalRecursos, itens }) {
     return (
         <Box sx={{ minWidth: 250 }}>
-            <Card style={{ height: '100%' }} variant="outlined">
+            <Card style={{ height: '100%', backgroundColor: '#3399ff1a' }} variant="outlined">
                 <CardContent>
                     <Typography variant="h5" component="div">
                         {sobrevivente}
