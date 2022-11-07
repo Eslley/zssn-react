@@ -4,8 +4,11 @@ function PieChart({ title, data, legend }) {
 
   const options = {
     title: title,
-    pieHole: 0.4,
-    legend: { textStyle: {fontSize: 16}}
+    legend: { textStyle: {fontSize: 16}},
+    slices: {
+      0: { color: "red" },
+      1: { color: "#3366CC" },
+    }
   };
 
   return (
