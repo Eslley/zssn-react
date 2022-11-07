@@ -1,4 +1,4 @@
-function PageTitle({ icon, title}) {
+function PageTitle({ icon, title, helper}) {
     return (
         <h4 style={{
             display: 'flex',
@@ -8,6 +8,9 @@ function PageTitle({ icon, title}) {
         }}>
             {icon}
             {title}
+            <div style={{ justifySelf: 'end' }}>
+                {helper}
+            </div>
         </h4>
     )
 }

@@ -1,11 +1,12 @@
-import { SwapHoriz } from "@mui/icons-material"
-import { Fab, Grid } from "@mui/material"
+import { HelpOutline, SwapHoriz } from "@mui/icons-material"
+import { Fab, Grid, IconButton } from "@mui/material"
 import { useEffect, useState } from "react"
 import { useAlertMessage } from "../../components/alert/AlertMessageProvider"
 import PageTitle from "../../components/layout/PageTitle"
 import { useLoader } from "../../components/loading/LoadingProvider"
 import inventariosService from "../../providers/http-service/inventariosService"
 import sobreviventesService from "../../providers/http-service/sobreviventesService"
+import ComercioAjuda from "./ComercioAjuda"
 import ComercioCard from "./ComercioCard"
 import ComercioForm from "./ComercioForm"
 
@@ -17,6 +18,8 @@ function Comercio() {
   const [sobrevivente2, setSobrevivente2] = useState()
 
   const [selectSobreviventes, setSelectSobreviventes] = useState([])
+
+  const [ajudaOpen, setAjudaOpen] = useState(false)
 
   useEffect(() => {
     listarSobreviventes()
@@ -46,6 +49,7 @@ function Comercio() {
         }
 
         stopLoader()
+        setAjudaOpen(true)
 
       })
         .catch(err => {
@@ -95,7 +99,10 @@ function Comercio() {
 
   return (
     <>
-      <PageTitle title="Comércio" icon={(<SwapHoriz />)} />
+      <PageTitle title="Comércio" icon={(<SwapHoriz />)} helper={
+        <IconButton onClick={() => setAjudaOpen(true)} aria-label="help">
+          <HelpOutline />
+        </IconButton>} />
 
       {sobrevivente1 && sobrevivente2 ?
         <Grid container justifyContent="center" columnSpacing={2} rowSpacing={2}>
@@ -108,7 +115,7 @@ function Comercio() {
           </Grid>
 
           <Grid container item justifyContent="center" xs={12}>
-            <Fab disabled={ sobrevivente1.totalPontos === 0 || !(sobrevivente1.totalPontos === sobrevivente2.totalPontos)} onClick={requestTroca} variant="extended" color="primary" aria-label="add">
+            <Fab disabled={sobrevivente1.totalPontos === 0 || !(sobrevivente1.totalPontos === sobrevivente2.totalPontos)} onClick={requestTroca} variant="extended" color="primary" aria-label="add">
               <SwapHoriz />
               Trocar
             </Fab>
@@ -117,6 +124,8 @@ function Comercio() {
         :
         <ComercioForm search={search} selectSobreviventes={selectSobreviventes} />
       }
+
+      <ComercioAjuda ajudaOpen={ajudaOpen} closeAjuda={() => setAjudaOpen(false)} />
     </>
   )
 }
