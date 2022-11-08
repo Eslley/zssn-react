@@ -20,3 +20,21 @@ Para utilizar a aplicação acesse [link](https://eslley.github.io/zssn-react)
 * Material UI
 * React Hook Form
 * Axios
+
+**Snapshot da aplicação**
+
+<p align="center">
+    <img src="https://imgur.com/J24GSVM.png" width="35%">
+</p>
+
+<p align="center">
+    <img src="https://imgur.com/QwxXK0u.png" width="35%">
+</p>
+
+<p align="center">
+    <img src="https://imgur.com/cIOYfe4.png" width="70%">
+</p>
+
+<p align="center">
+    <img src="https://imgur.com/Jv03D3M.png" width="70%">
+</p>
