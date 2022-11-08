@@ -9,6 +9,7 @@ import sobreviventesService from "../../providers/http-service/sobreviventesServ
 import ComercioAjuda from "./ComercioAjuda"
 import ComercioCard from "./ComercioCard"
 import ComercioForm from "./ComercioForm"
+import comercioService from "../../providers/http-service/comercioService"
 
 function Comercio() {
 
@@ -93,8 +94,59 @@ function Comercio() {
   }
 
   function requestTroca() {
-    console.log(sobrevivente1)
-    console.log(sobrevivente2)
+
+    if (sobrevivente1.totalPontos !== sobrevivente2.totalPontos) {
+      showAlert('', 'O total de pontos ofertados tem que ser igual!', 'error', 4000)
+      return
+    }
+
+    startLoader()
+
+    let data = {
+      sobrevivente1: {
+        sobrevivente: sobrevivente1.sobreviventeId,
+        itens: []
+      },
+      sobrevivente2: {
+        sobrevivente: sobrevivente2.sobreviventeId,
+        itens: []
+      }
+    }
+
+    sobrevivente1.itens.forEach(item => {
+      if(item.oferecido !== 0) {
+        data.sobrevivente1.itens.push({
+          id: item.item.id,
+          quantidade: item.oferecido,
+          pontos: item.item.pontos
+        })
+      }
+    })
+
+    sobrevivente2.itens.forEach(item => {
+      if(item.oferecido !== 0) {
+        data.sobrevivente2.itens.push({
+          id: item.item.id,
+          quantidade: item.oferecido,
+          pontos: item.item.pontos
+        })
+      }
+    })
+
+    comercioService.trocar(data)
+      .then(res => {
+        if(res.status === 200) {
+          stopLoader()
+          showAlert('', 'Trocas realizadas com sucesso!', 'success', 4000)
+          setSobrevivente1("")
+          setSobrevivente2("")
+        }
+
+      })
+      .catch(err => {
+        console.log(err)
+        stopLoader()
+      })
   }
 
   return (
